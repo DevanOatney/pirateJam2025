@@ -71,3 +71,18 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+/Pirate Jam 2025/Library
+/Pirate Jam 2025/Temp
+/Pirate Jam 2025/Logs
+/Pirate Jam 2025/UserSettings
+*.cache
+*.cache
+/Pirate Jam 2025/obj/Debug
+Pirate Jam 2025/ProjectSettings/Packages/com.unity.probuilder/Settings.json
+Pirate Jam 2025/UserSettings/EditorUserSettings.asset
+Pirate Jam 2025/UserSettings/Layouts/default-2022.dwlt
+Pirate Jam 2025/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Pirate Jam 2025/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Pirate Jam 2025/ProjectSettings/Packages/com.unity.probuilder/Settings.json
+Pirate Jam 2025/UserSettings/EditorUserSettings.asset
+/Pirate Jam 2025/Builds
