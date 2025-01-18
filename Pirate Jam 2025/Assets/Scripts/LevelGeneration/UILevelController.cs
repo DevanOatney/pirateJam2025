@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILevelController : MonoBehaviour
 {
@@ -8,11 +9,21 @@ public class UILevelController : MonoBehaviour
     public RectTransform canvasRoot; 
     public GameObject uiNodePrefab; 
     public float uiNodeSpacing = 100f;
-    public float stageSpacing = 200f; 
+    public float stageSpacing = 200f;
+    public Button buttonLeft;
+    public Button buttonRight;
+
+    [Header("Panning Settings")]
+    public float panAmount = 200f; 
+    public float minPanX = -1000f; 
+    public float maxPanX = 1000f;  
+
+    private Vector2 initialPosition;
 
     [Header("UI Hierarchy")]
-    public Transform nodesParent; 
-    public Transform linesParent; 
+    public RectTransform nodesParent; 
+    public RectTransform linesParent;
+    public RectTransform levelVisualization;
 
     private List<List<GameObject>> uiStages = new List<List<GameObject>>();
 
@@ -77,6 +88,8 @@ public class UILevelController : MonoBehaviour
         }
 
         DrawConnections(uiStages);
+
+        CalculatePanLimits();
     }
 
     private void DrawConnections(List<List<GameObject>> uiStages)
@@ -135,6 +148,11 @@ public class UILevelController : MonoBehaviour
     public void Start()
     {
         SetupLevelUI();
+
+        initialPosition = levelVisualization.anchoredPosition;
+
+        buttonLeft.onClick.AddListener(() => PanUI(panAmount));
+        buttonRight.onClick.AddListener(() => PanUI(-panAmount));
     }
 
     public void Update()
@@ -144,6 +162,44 @@ public class UILevelController : MonoBehaviour
             levelGenerator.GenerateLevel();
             SetupLevelUI();
         }
+    }
+
+    private void PanUI(float amount)
+    {
+        Vector2 newPosition = levelVisualization.anchoredPosition;
+        newPosition.x += amount;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, minPanX, maxPanX);
+
+        levelVisualization.anchoredPosition = newPosition;
+    }
+
+    void CalculatePanLimits()
+    {
+        float visibleWidth = canvasRoot.rect.width;
+        float totalWidth = CalculateTotalWidth();
+
+        minPanX = Mathf.Min(0, -((totalWidth - visibleWidth) / 2));
+        maxPanX = Mathf.Max(0, (totalWidth - visibleWidth) / 2);
+    }
+
+    float CalculateTotalWidth()
+    {
+        float minX = float.MaxValue;
+        float maxX = float.MinValue;
+
+        foreach (RectTransform child in nodesParent)
+        {
+            minX = Mathf.Min(minX, child.anchoredPosition.x);
+            maxX = Mathf.Max(maxX, child.anchoredPosition.x);
+        }
+
+        return maxX - minX;
+    }
+
+    public void ResetPosition()
+    {
+        levelVisualization.anchoredPosition = initialPosition;
     }
 
     private void UpdateNodeAppearance(GameObject nodeUI, NodeType nodeType)
