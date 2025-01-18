@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class LevelGenerator : MonoBehaviour
 {
     [Header("Level Settings")]
-    public int numStages = 5; // Total number of stages (columns)
-    public int minNodesPerStage = 1; // Minimum nodes in each stage (except the start)
-    public int maxNodesPerStage = 4; // Maximum nodes in each stage
-    public float stageSpacing = 3.0f; // Horizontal spacing between stages
-    public float nodeSpacing = 2.0f; // Vertical spacing between nodes in a stage
-    [Range(0f, 1f)] public float minNodeProbability = 0.05f; // Likelihood of selecting minNodesPerStage
+    public int numStages = 5; 
+    public int minNodesPerStage = 1; 
+    public int maxNodesPerStage = 4; 
+    public float stageSpacing = 3.0f; 
+    public float nodeSpacing = 2.0f; 
+    [Range(0f, 1f)] public float minNodeProbability = 0.05f;
     [Range(0f, 1f)] public float maxNodeProbability = 0.05f;
 
     [Header("Node Type Likelihoods")]
@@ -76,7 +76,6 @@ public class LevelGenerator : MonoBehaviour
     {
         stages.Clear();
 
-        // Step 1: Create Stage 1 (Start Node)
         List<LevelNode> stage1 = new List<LevelNode>();
         LevelNode startNode = new LevelNode
         {
@@ -86,11 +85,9 @@ public class LevelGenerator : MonoBehaviour
         stage1.Add(startNode);
         stages.Add(stage1);
 
-        // Step 2: Normalize Node Type Probabilities
         NormalizeNodeTypeProbabilities();
 
-        // Step 3: Create Intermediate Stages
-        for (int i = 1; i < numStages - 1; i++) // Exclude last stage
+        for (int i = 1; i < numStages - 1; i++) 
         {
             int nodeCount = GetNodeCount();
             List<LevelNode> currentStage = new List<LevelNode>();
@@ -112,13 +109,12 @@ public class LevelGenerator : MonoBehaviour
         List<LevelNode> lastStage = new List<LevelNode>();
         LevelNode bossNode = new LevelNode
         {
-            nodeType = NodeType.Boss, // Ensure a boss node in the final stage
+            nodeType = NodeType.Boss, 
             position = new Vector2((numStages - 1) * stageSpacing, 0)
         };
         lastStage.Add(bossNode);
         stages.Add(lastStage);
 
-        // Step 5: Create Connections Between Stages
         CreateConnections();
     }
 
@@ -136,26 +132,20 @@ public class LevelGenerator : MonoBehaviour
             List<LevelNode> currentStage = stages[i];
             List<LevelNode> nextStage = stages[i + 1];
 
-            // Track connections for each node in the next stage to ensure all are connected
             HashSet<LevelNode> connectedNextStageNodes = new HashSet<LevelNode>();
 
-            // Step 1: Connect nodes in the current stage to the next stage
             foreach (LevelNode currentNode in currentStage)
             {
-                // Find a preferred node in the next stage (-1, 0, +1 range)
                 LevelNode preferredNode = FindPreferredNode(currentNode, nextStage);
 
-                // Add connection
                 currentNode.connectedNodes.Add(preferredNode);
                 connectedNextStageNodes.Add(preferredNode);
             }
 
-            // Step 2: Ensure each node in the next stage has at least one connection
             foreach (LevelNode nextNode in nextStage)
             {
                 if (!connectedNextStageNodes.Contains(nextNode))
                 {
-                    // Find the closest node from the current stage
                     LevelNode closestNode = FindClosestNodeByY(currentStage, nextNode);
                     closestNode.connectedNodes.Add(nextNode);
                 }
@@ -170,13 +160,11 @@ public class LevelGenerator : MonoBehaviour
 
         foreach (LevelNode node in nextStage)
         {
-            // Check if the node is in the preferred range
             if (Mathf.Abs(node.position.y - currentNode.position.y) <= 1)
             {
-                return node; // Immediately return if a preferred node is found
+                return node;
             }
 
-            // Calculate distance for fallback
             float distance = Mathf.Abs(node.position.y - currentNode.position.y);
             if (distance < smallestDistance)
             {
@@ -185,7 +173,6 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        // Fallback to the closest node
         return closestNode;
     }
 

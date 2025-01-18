@@ -96,7 +96,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -136,5 +136,10 @@ MonoBehaviour:
   levelNode:
     nodeType: 0
     position: {x: 0, y: 0}
-    connectedNodes: []
-  debugText: {fileID: 0}
+  nodeTransform: {fileID: 3424416151754757321}
+  nodeImage: {fileID: 2524399038573521592}
+  nodeLabel: {fileID: 0}
+  highlightColor: {r: 1, g: 0.93226576, b: 0, a: 1}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  completedColor: {r: 0, g: 1, b: 0.19758415, a: 1}
+  unavailableColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0.56078434}
