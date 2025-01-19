@@ -78,7 +78,7 @@ public class UILevelController : MonoBehaviour
 
                 if (uiController != null)
                 {
-                    uiController.Initialize(node, canvasRoot.GetComponent<Canvas>()); 
+                    uiController.Initialize(node); 
                 }
 
                 RectTransform rectTransform = nodeUI.GetComponent<RectTransform>();

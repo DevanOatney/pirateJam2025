@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSelectionController : MonoBehaviour
@@ -9,6 +9,8 @@ public class LevelSelectionController : MonoBehaviour
 
     private LevelNodeUIController currentSelectedNode;
     private List<LevelNodeUIController> allNodeControllers = new List<LevelNodeUIController>();
+    private List<LevelNodeUIController> completedNodes = new List<LevelNodeUIController>();
+
 
     public void InitializeLevelNodes()
     {
@@ -22,12 +24,15 @@ public class LevelSelectionController : MonoBehaviour
             }
         }
 
-        // Set the initial current node (e.g., the Start node)
         if (allNodeControllers.Count > 0)
         {
-            SetCurrentNode(allNodeControllers[0]);
+            var firstNode = allNodeControllers[0];
+            completedNodes.Add(firstNode);
+            firstNode.SetAsCompletedNode();
+            SetCurrentNode(firstNode);
         }
     }
+
 
     public void Update()
     {
@@ -47,33 +52,31 @@ public class LevelSelectionController : MonoBehaviour
 
     private void SetCurrentNode(LevelNodeUIController newCurrentNode)
     {
-        // Mark the previous current node as completed
-        if (currentSelectedNode != null)
+        if (currentSelectedNode != null && !completedNodes.Contains(currentSelectedNode))
         {
+            completedNodes.Add(currentSelectedNode);
             currentSelectedNode.SetAsCompletedNode();
         }
 
-        // Update the current node
         currentSelectedNode = newCurrentNode;
         currentSelectedNode.SetAsCurrentNode();
 
-        // Update node states based on the new current node
         UpdateNodeStates();
     }
 
+
+
     private void OnNodeSelected(LevelNodeUIController nodeController)
     {
-        if (nodeController == null || !currentSelectedNode.levelNode.connectedNodes.Contains(nodeController.levelNode))
+        if (!currentSelectedNode.levelNode.connectedNodes.Contains(nodeController.levelNode))
         {
             Debug.LogWarning("Selected node is not accessible.");
             return;
         }
 
-        // Hide the level selection UI and activate the selected node's action
         uiLevelController.HideLevelSelection();
         ActivateNodeAction(nodeController.levelNode);
 
-        // Update the current node to the selected node
         SetCurrentNode(nodeController);
     }
 
@@ -85,20 +88,23 @@ public class LevelSelectionController : MonoBehaviour
             {
                 nodeController.SetAsCurrentNode();
             }
+            else if (completedNodes.Contains(nodeController))
+            {
+                nodeController.SetAsCompletedNode();
+            }
             else if (currentSelectedNode.levelNode.connectedNodes.Contains(nodeController.levelNode))
             {
                 nodeController.SetAsAccessibleNode();
             }
-            else if (nodeController.levelNode.connectedNodes.Count == 0)
+            else
             {
                 nodeController.SetAsUnavailableNode();
             }
-            else
-            {
-                nodeController.SetAsUnavailableNode(); // Default to unavailable state
-            }
         }
     }
+
+
+
 
     public void ReturnToLevelSelection()
     {
