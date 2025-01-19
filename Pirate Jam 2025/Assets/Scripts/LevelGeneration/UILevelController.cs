@@ -7,14 +7,15 @@ public class UILevelController : MonoBehaviour
     [Header("References")]
     public LevelGenerator levelGenerator;
     public RectTransform canvasRoot; 
-    public GameObject uiNodePrefab; 
-    public float uiNodeSpacing = 100f;
-    public float stageSpacing = 200f;
+    public GameObject uiNodePrefab;
+    public LevelSelectionController levelSelectionController;
 
     [Header("Panning Settings")]
     public float panAmount = 200f; 
     public float minPanX = -1000f; 
-    public float maxPanX = 1000f;  
+    public float maxPanX = 1000f;
+    public float uiNodeSpacing = 100f;
+    public float stageSpacing = 200f;
 
     private Vector2 initialPosition;
 
@@ -30,7 +31,17 @@ public class UILevelController : MonoBehaviour
     private Vector2 contentStartPosition;
     private bool isPanningLeft = false;
     private bool isPanningRight = false;
-    public float panSpeed = 300f; 
+    public float panSpeed = 300f;
+
+    public void ShowLevelSelection()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public void HideLevelSelection()
+    {
+        this.gameObject.SetActive(false);
+    }
 
     public void SetupLevelUI()
     {
@@ -95,6 +106,8 @@ public class UILevelController : MonoBehaviour
         DrawConnections(uiStages);
 
         CalculatePanLimits();
+
+        levelSelectionController.InitializeLevelNodes();
     }
 
     private void DrawConnections(List<List<GameObject>> uiStages)
@@ -152,9 +165,8 @@ public class UILevelController : MonoBehaviour
 
     private void Start()
     {
-        SetupLevelUI();
-
         initialPosition = levelVisualization.anchoredPosition;
+        SetupLevelUI();
     }
 
     public void Update()
@@ -186,6 +198,12 @@ public class UILevelController : MonoBehaviour
             newPosition.x = Mathf.Clamp(newPosition.x, minPanX, maxPanX);
 
             levelVisualization.anchoredPosition = newPosition;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            levelGenerator.GenerateLevel();
+            SetupLevelUI();
         }
     }
 

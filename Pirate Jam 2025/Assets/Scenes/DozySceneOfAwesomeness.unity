@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &96908428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96908430}
+  - component: {fileID: 96908429}
+  m_Layer: 0
+  m_Name: LevelSelection_Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &96908429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96908428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d8a843a315024408bbfbea507c028c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiLevelController: {fileID: 1654514047}
+  levelNodesParent: {fileID: 280697369}
+--- !u!4 &96908430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96908428}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &244463472
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,13 +658,12 @@ MonoBehaviour:
   levelGenerator: {fileID: 244463473}
   canvasRoot: {fileID: 1654514046}
   uiNodePrefab: {fileID: 2368265184481536679, guid: 1d928e1951863834eba69f80e83489e2, type: 3}
-  uiNodeSpacing: 100
-  stageSpacing: 200
-  buttonLeft: {fileID: 0}
-  buttonRight: {fileID: 0}
+  levelSelectionController: {fileID: 96908429}
   panAmount: 200
   minPanX: -1000
   maxPanX: 1000
+  uiNodeSpacing: 100
+  stageSpacing: 200
   nodesParent: {fileID: 280697369}
   linesParent: {fileID: 922605477}
   levelVisualization: {fileID: 845295254}
@@ -631,3 +676,4 @@ SceneRoots:
   - {fileID: 1654514046}
   - {fileID: 562739264}
   - {fileID: 244463474}
+  - {fileID: 96908430}

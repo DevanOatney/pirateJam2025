@@ -5,16 +5,16 @@ using DG.Tweening;
 
 public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public LevelNode levelNode; 
+    public LevelNode levelNode;
     [SerializeField] private RectTransform nodeTransform;
-    [SerializeField] private Image nodeImage; 
+    [SerializeField] private Image nodeImage;
     [SerializeField] private Text nodeLabel;
     [SerializeField] private Color highlightColor;
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color completedColor;
     [SerializeField] private Color unavailableColor;
     private Tween currentTween;
-    private Tween colorTween; 
+    private Tween colorTween;
 
     public void Initialize(LevelNode node, Canvas _rootCanvas)
     {
@@ -36,7 +36,7 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ResetNode(); 
+        ResetNode();
         currentTween = nodeTransform.DOScale(Vector3.one * 1.1f, 0.2f).SetEase(Ease.OutQuad);
 
         if (nodeImage != null)
@@ -48,7 +48,7 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        ResetNode(); 
+        ResetNode();
     }
 
     public void SelectNode()
@@ -81,18 +81,33 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void ResetNode()
     {
-        currentTween?.Kill(); 
-        colorTween?.Kill(); 
+        currentTween?.Kill();
+        colorTween?.Kill();
         nodeTransform.localScale = Vector3.one;
 
         if (nodeImage != null)
         {
-            nodeImage.color = defaultColor; 
+            nodeImage.color = defaultColor;
         }
 
         if (nodeLabel != null)
         {
-            nodeLabel.color = Color.white; 
+            nodeLabel.color = Color.white;
         }
     }
+
+    public void SetAsAccessibleNode()
+    {
+        ResetNode();
+
+        if (nodeImage != null)
+        {
+            colorTween?.Kill();
+            colorTween = nodeImage.DOColor(highlightColor, 0.5f);
+        }
+
+        currentTween = nodeTransform.DOScale(Vector3.one * 1.1f, 0.2f)
+            .SetEase(Ease.OutQuad);
+    }
+
 }
