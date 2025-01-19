@@ -49,13 +49,14 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
         if (nodeImage != null)
         {
             colorTween?.Kill();
-            colorTween = nodeImage.DOColor(highlightColor, 0.5f);
+            colorTween = nodeImage.DOColor(completedColor, 0.5f);
         }
 
         currentTween = nodeTransform.DOScale(Vector3.one * 1.2f, 0.5f)
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.InOutSine);
     }
+
 
 
     public void SetAsCompletedNode()
