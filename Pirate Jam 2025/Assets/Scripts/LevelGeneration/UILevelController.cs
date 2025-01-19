@@ -10,8 +10,6 @@ public class UILevelController : MonoBehaviour
     public GameObject uiNodePrefab; 
     public float uiNodeSpacing = 100f;
     public float stageSpacing = 200f;
-    public Button buttonLeft;
-    public Button buttonRight;
 
     [Header("Panning Settings")]
     public float panAmount = 200f; 
@@ -26,6 +24,13 @@ public class UILevelController : MonoBehaviour
     public RectTransform levelVisualization;
 
     private List<List<GameObject>> uiStages = new List<List<GameObject>>();
+
+    private bool isDragging = false;
+    private Vector2 dragStartPosition;
+    private Vector2 contentStartPosition;
+    private bool isPanningLeft = false;
+    private bool isPanningRight = false;
+    public float panSpeed = 300f; 
 
     public void SetupLevelUI()
     {
@@ -145,24 +150,45 @@ public class UILevelController : MonoBehaviour
 
 
 
-    public void Start()
+    private void Start()
     {
         SetupLevelUI();
 
         initialPosition = levelVisualization.anchoredPosition;
-
-        buttonLeft.onClick.AddListener(() => PanUI(panAmount));
-        buttonRight.onClick.AddListener(() => PanUI(-panAmount));
     }
 
     public void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (isPanningLeft)
         {
-            levelGenerator.GenerateLevel();
-            SetupLevelUI();
+            PanUI(Time.deltaTime * panSpeed);
+        }
+        else if (isPanningRight)
+        {
+            PanUI(-Time.deltaTime * panSpeed);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            isDragging = true;
+            dragStartPosition = Input.mousePosition;
+            contentStartPosition = levelVisualization.anchoredPosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+        }
+        else if (isDragging)
+        {
+            Vector2 dragDelta = (Vector2)Input.mousePosition - dragStartPosition;
+            Vector2 newPosition = contentStartPosition + new Vector2(dragDelta.x, 0);
+
+            newPosition.x = Mathf.Clamp(newPosition.x, minPanX, maxPanX);
+
+            levelVisualization.anchoredPosition = newPosition;
         }
     }
+
 
     private void PanUI(float amount)
     {
@@ -179,8 +205,8 @@ public class UILevelController : MonoBehaviour
         float visibleWidth = canvasRoot.rect.width;
         float totalWidth = CalculateTotalWidth();
 
-        minPanX = Mathf.Min(0, -((totalWidth - visibleWidth) / 2));
-        maxPanX = Mathf.Max(0, (totalWidth - visibleWidth) / 2);
+        minPanX = Mathf.Min(0, - (totalWidth - visibleWidth) * 1.5f);
+        maxPanX = Mathf.Max(0, (totalWidth - visibleWidth) * 0.5f);
     }
 
     float CalculateTotalWidth()
