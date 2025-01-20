@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 
 public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -19,10 +20,12 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
     private bool isAccessible;
     private bool isCurrent;
     private bool isCompleted;
+    private LevelSelectTooltipController tooltipController;
 
-    public void Initialize(LevelNode node)
+    public void Initialize(LevelNode node, LevelSelectTooltipController ttController)
     {
         levelNode = node;
+        tooltipController = ttController;
     }
 
     private void ResetNodeState()
@@ -57,8 +60,6 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
             .SetEase(Ease.InOutSine);
     }
 
-
-
     public void SetAsCompletedNode()
     {
         isCompleted = true;
@@ -85,6 +86,24 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (tooltipController != null)
+        {
+            tooltipController.gameObject.SetActive(true);
+            string tooltipText = levelNode.nodeType.ToString();
+            switch (levelNode.nodeType)
+            {
+                case NodeType.Start:
+                    tooltipText = "Encounter";
+                    break;
+                case NodeType.MiniBoss:
+                    tooltipText = "Mini Boss";
+                    break;
+                case NodeType.End:
+                    tooltipText = "Boss";
+                    break;
+            }
+            tooltipController.text.text = tooltipText;
+        }
         if (!isAccessible) return;
 
         currentTween?.Kill();
@@ -99,6 +118,12 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (tooltipController != null)
+        {
+            tooltipController.gameObject.SetActive(false);
+            tooltipController.text.text = "";
+        }
+
         ResetNodeState();
     }
 

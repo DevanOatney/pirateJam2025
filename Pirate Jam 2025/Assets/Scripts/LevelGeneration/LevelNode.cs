@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum NodeType { Start, Encounter, Boss, Treasure, Mystery, End }
+public enum NodeType { Start, Encounter, MiniBoss, Treasure, Mystery, Boss, End }
 
 [System.Serializable]
 public class LevelNode

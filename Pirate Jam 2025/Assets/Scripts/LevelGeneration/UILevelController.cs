@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UILevelController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UILevelController : MonoBehaviour
     public RectTransform canvasRoot; 
     public GameObject uiNodePrefab;
     public LevelSelectionController levelSelectionController;
+    public LevelSelectTooltipController levelSelectTooltipController;
 
     [Header("Panning Settings")]
     public float panAmount = 200f; 
@@ -33,9 +35,12 @@ public class UILevelController : MonoBehaviour
     private bool isPanningRight = false;
     public float panSpeed = 300f;
 
+
     public void ShowLevelSelection()
     {
         this.gameObject.SetActive(true);
+        levelSelectTooltipController.text.text = "";
+        levelSelectTooltipController.gameObject.SetActive(false);
     }
 
     public void HideLevelSelection()
@@ -78,7 +83,7 @@ public class UILevelController : MonoBehaviour
 
                 if (uiController != null)
                 {
-                    uiController.Initialize(node); 
+                    uiController.Initialize(node, levelSelectTooltipController); 
                 }
 
                 RectTransform rectTransform = nodeUI.GetComponent<RectTransform>();
@@ -167,6 +172,7 @@ public class UILevelController : MonoBehaviour
     {
         initialPosition = levelVisualization.anchoredPosition;
         SetupLevelUI();
+        levelSelectTooltipController.gameObject.SetActive(false);
     }
 
     public void Update()
