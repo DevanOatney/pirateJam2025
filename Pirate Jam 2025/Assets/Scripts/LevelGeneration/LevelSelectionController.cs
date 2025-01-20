@@ -6,11 +6,16 @@ public class LevelSelectionController : MonoBehaviour
 {
     [SerializeField] private UILevelController uiLevelController;
     [SerializeField] private Transform levelNodesParent;
+    [SerializeField] private GameController gameController;
 
     private LevelNodeUIController currentSelectedNode;
     private List<LevelNodeUIController> allNodeControllers = new List<LevelNodeUIController>();
     private List<LevelNodeUIController> completedNodes = new List<LevelNodeUIController>();
 
+    public void InitializeLevelSelectionScreen()
+    {
+        uiLevelController.InitializeLevelSelectionUI();
+    }
 
     public void InitializeLevelNodes()
     {
@@ -30,15 +35,6 @@ public class LevelSelectionController : MonoBehaviour
             completedNodes.Add(firstNode);
             firstNode.SetAsCompletedNode();
             SetCurrentNode(firstNode);
-        }
-    }
-
-
-    public void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            ReturnToLevelSelection();
         }
     }
 
@@ -103,9 +99,6 @@ public class LevelSelectionController : MonoBehaviour
         }
     }
 
-
-
-
     public void ReturnToLevelSelection()
     {
         uiLevelController.ShowLevelSelection();
@@ -116,27 +109,36 @@ public class LevelSelectionController : MonoBehaviour
     {
         switch (levelNode.nodeType)
         {
-            case NodeType.Start:
-                Debug.Log("Starting the journey!");
-                break;
-            case NodeType.Encounter:
-                Debug.Log("Preparing for an encounter!");
-                break;
-            case NodeType.Boss:
-                Debug.Log("Facing the boss!");
-                break;
             case NodeType.Treasure:
-                Debug.Log("Opening the treasure chest!");
+                ShowTreasuryUI(levelNode.treasuryData);
                 break;
             case NodeType.Mystery:
-                Debug.Log("Exploring the mystery!");
+                ShowMysteryUI(levelNode.mysteryData);
                 break;
-            case NodeType.End:
-                Debug.Log("Journey complete!");
+            case NodeType.Encounter:
+            case NodeType.MiniBoss:
+            case NodeType.Boss:
+                StartEncounter(levelNode.combatData);
                 break;
             default:
                 Debug.LogWarning($"Unhandled NodeType: {levelNode.nodeType}");
                 break;
         }
     }
+
+    private void ShowTreasuryUI(TreasuryData treasuryData)
+    {
+        gameController.SetCanvasStates(CanvasState.TreasuryEvent);
+    }
+
+    private void ShowMysteryUI(MysteryData mysteryData)
+    {
+        gameController.SetCanvasStates(CanvasState.MysteryEvent);
+    }
+
+    private void StartEncounter(EncounterData combatData)
+    {
+        gameController.SetCanvasStates(CanvasState.EncounterEvent);
+    }
+
 }

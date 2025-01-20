@@ -10,4 +10,9 @@ public class LevelNode
     public Vector2 position;
     [System.NonSerialized]
     public List<LevelNode> connectedNodes = new List<LevelNode>();
+
+    // Node-specific data
+    public TreasuryData treasuryData;
+    public MysteryData mysteryData;
+    public EncounterData combatData;
 }

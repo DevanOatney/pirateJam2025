@@ -7,14 +7,14 @@ public class UILevelController : MonoBehaviour
 {
     [Header("References")]
     public LevelGenerator levelGenerator;
-    public RectTransform canvasRoot; 
+    public RectTransform canvasRoot;
     public GameObject uiNodePrefab;
     public LevelSelectionController levelSelectionController;
     public LevelSelectTooltipController levelSelectTooltipController;
 
     [Header("Panning Settings")]
-    public float panAmount = 200f; 
-    public float minPanX = -1000f; 
+    public float panAmount = 200f;
+    public float minPanX = -1000f;
     public float maxPanX = 1000f;
     public float uiNodeSpacing = 100f;
     public float stageSpacing = 200f;
@@ -22,11 +22,12 @@ public class UILevelController : MonoBehaviour
     private Vector2 initialPosition;
 
     [Header("UI Hierarchy")]
-    public RectTransform nodesParent; 
+    public RectTransform nodesParent;
     public RectTransform linesParent;
     public RectTransform levelVisualization;
 
     private List<List<GameObject>> uiStages = new List<List<GameObject>>();
+    private float yOffset = 200f;
 
     private bool isDragging = false;
     private Vector2 dragStartPosition;
@@ -41,11 +42,19 @@ public class UILevelController : MonoBehaviour
         this.gameObject.SetActive(true);
         levelSelectTooltipController.text.text = "";
         levelSelectTooltipController.gameObject.SetActive(false);
+        isDragging = false;
+        isPanningLeft = false;
+        isPanningRight = false;
     }
 
     public void HideLevelSelection()
     {
         this.gameObject.SetActive(false);
+        levelSelectTooltipController.text.text = "";
+        levelSelectTooltipController.gameObject.SetActive(false);
+        isDragging = false;
+        isPanningLeft = false;
+        isPanningRight = false;
     }
 
     public void SetupLevelUI()
@@ -83,7 +92,7 @@ public class UILevelController : MonoBehaviour
 
                 if (uiController != null)
                 {
-                    uiController.Initialize(node, levelSelectTooltipController); 
+                    uiController.Initialize(node, levelSelectTooltipController);
                 }
 
                 RectTransform rectTransform = nodeUI.GetComponent<RectTransform>();
@@ -95,9 +104,8 @@ public class UILevelController : MonoBehaviour
                     Vector2 centerOffset = new Vector2(canvasWidth / 2, canvasHeight / 2);
 
                     rectTransform.anchoredPosition = new Vector2(
-                        node.position.x * stageSpacing,
-                        node.position.y * uiNodeSpacing + centerOffset.y
-                    ) - centerOffset;
+                                                         node.position.x * stageSpacing,
+                                                         node.position.y * uiNodeSpacing + centerOffset.y - yOffset ) - centerOffset;
                 }
 
                 uiStage.Add(nodeUI);
@@ -150,7 +158,7 @@ public class UILevelController : MonoBehaviour
     private void CreateConnectionLine(Vector2 startPos, Vector2 endPos)
     {
         GameObject line = new GameObject("ConnectionLine", typeof(RectTransform));
-        line.transform.SetParent(linesParent, false); 
+        line.transform.SetParent(linesParent, false);
 
         var image = line.AddComponent<UnityEngine.UI.Image>();
         image.color = Color.gray;
@@ -160,16 +168,15 @@ public class UILevelController : MonoBehaviour
         float distance = direction.magnitude;
 
         rectTransform.sizeDelta = new Vector2(distance, 5f);
-        rectTransform.anchorMin = rectTransform.anchorMax = new Vector2(0.5f, 0.5f); 
-        rectTransform.pivot = new Vector2(0f, 0.5f); 
+        rectTransform.anchorMin = rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        rectTransform.pivot = new Vector2(0f, 0.5f);
         rectTransform.anchoredPosition = startPos;
         rectTransform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
     }
 
-
-
-    private void Start()
+    public void InitializeLevelSelectionUI()
     {
+        levelGenerator.InitializeGenerator();
         initialPosition = levelVisualization.anchoredPosition;
         SetupLevelUI();
         levelSelectTooltipController.gameObject.SetActive(false);
@@ -229,7 +236,7 @@ public class UILevelController : MonoBehaviour
         float visibleWidth = canvasRoot.rect.width;
         float totalWidth = CalculateTotalWidth();
 
-        minPanX = Mathf.Min(0, - (totalWidth - visibleWidth) * 1.5f);
+        minPanX = Mathf.Min(0, -(totalWidth - visibleWidth) * 1.5f);
         maxPanX = Mathf.Max(0, (totalWidth - visibleWidth) * 0.5f);
     }
 
