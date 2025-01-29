@@ -1,41 +1,43 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public KeyCode attackKey; // Key to trigger the attack
     public GameObject hitbox; // Reference to the hitbox GameObject
-    public float attackDuration = 0.2f; // Duration for which the hitbox remains active
+    public float attackDuration = 0.2f; // Duration the hitbox remains active
+    public float attackCooldown = 0.5f; // Cooldown time between attacks
     public int attackDamage = 10; // Damage dealt by the attack
 
     private bool isAttacking = false;
-
-    private void Start()
-    {
-        hitbox.SetActive(false);
-    }
+    private bool canAttack = true;
 
     void Update()
     {
-        // Check for attack input
-        if (Input.GetKeyDown(attackKey) && !isAttacking)
+        // Check for left mouse click to attack
+        if (Input.GetMouseButtonDown(0) && canAttack) // Left Mouse Button (0)
         {
             StartCoroutine(PerformAttack());
         }
     }
 
-    private System.Collections.IEnumerator PerformAttack()
+    private IEnumerator PerformAttack()
     {
         isAttacking = true;
+        canAttack = false;
 
         // Activate the hitbox
         hitbox.SetActive(true);
 
-        // Wait for the attack duration
+        // Wait for attack duration
         yield return new WaitForSeconds(attackDuration);
 
         // Deactivate the hitbox
         hitbox.SetActive(false);
 
         isAttacking = false;
+
+        // Wait for cooldown before allowing another attack
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 }

@@ -14,6 +14,7 @@ public class EnemyMovement : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
         agent.speed = moveSpeed;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
