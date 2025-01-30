@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 570731538}
   - component: {fileID: 570731537}
   - component: {fileID: 570731536}
+  - component: {fileID: 570731539}
   m_Layer: 0
   m_Name: hitbox
   m_TagString: Untagged
@@ -227,6 +228,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570731534}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &570731539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570731534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b481cf6fe78a84485433ce8925fc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 1129130114}
 --- !u!1 &622009411
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,10 +893,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1096593087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1390b34fa208efa45a631e2cfd31d2fb, type: 3}
+  m_Script: {fileID: 11500000, guid: e9b481cf6fe78a84485433ce8925fc68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  owner: {fileID: 1659681172}
 --- !u!1 &1129130110
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,10 +972,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2.5
-  movement: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
   moving: 0
-  facingVector: {x: 0, y: 0}
-  direction: 3
+  look: {x: 0, y: 0}
   characterController: {fileID: 0}
 --- !u!114 &1129130114
 MonoBehaviour:
@@ -975,8 +988,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063de5f8b32665f40b8f78964ded58d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
 --- !u!114 &1129130115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,7 +1181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b278599f8bf275448aaaa469544c531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
 --- !u!114 &1659681173
 MonoBehaviour:
   m_ObjectHideFlags: 0
