@@ -1,46 +1,28 @@
-using UnityEngine;
-
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Entity
 {
-    public int maxHealth = 100; // Maximum health
-    public int currentHealth;
+    public override int maxHealth => 100; // Maximum health
+    public override int attackDamage => 10;
 
     public delegate void OnHealthChanged(int currentHealth, int maxHealth);
     public event OnHealthChanged onHealthChanged; // Event for UI updates or effects
 
     void Start()
     {
-        currentHealth = maxHealth; // Initialize health
         onHealthChanged?.Invoke(currentHealth, maxHealth); // Notify listeners of initial health
     }
 
-    public void TakeDamage(int damage)
+    protected override void OnHealthGained()
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't go below 0
-        onHealthChanged?.Invoke(currentHealth, maxHealth); // Notify listeners
-
-        if (currentHealth <= 0)
-        {
-            Die(); // Call death logic if health reaches 0
-        }
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    public void Heal(int amount)
+    protected override void OnHealthLost()
     {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't exceed max
-        onHealthChanged?.Invoke(currentHealth, maxHealth); // Notify listeners
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    private void Die()
+    protected override void OnDeath()
     {
-        Debug.Log("Player has died!");
         // Implement death logic here (e.g., respawn, game over, etc.)
-    }
-
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
     }
 }

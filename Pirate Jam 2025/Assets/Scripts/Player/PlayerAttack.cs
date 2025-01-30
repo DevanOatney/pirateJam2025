@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+// TODO: This might be able to merge with the PlayerHealth system, not sure yet
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject hitbox; // Reference to the hitbox GameObject
@@ -13,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        // TODO: Switch to event-based input detection
         // Check for left mouse click to attack
         if (Input.GetMouseButtonDown(0) && canAttack) // Left Mouse Button (0)
         {
