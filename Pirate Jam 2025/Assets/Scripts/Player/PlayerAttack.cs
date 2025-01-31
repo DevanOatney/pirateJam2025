@@ -12,6 +12,11 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttacking = false;
     private bool canAttack = true;
 
+    private void Awake()
+    {
+        hitbox.SetActive(false);
+    }
+
     void Update()
     {
         // TODO: Switch to event-based input detection
