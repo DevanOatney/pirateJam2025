@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Trap
+  - Door
+  - Hazard
+  - Treasure
   layers:
   - Default
   - TransparentFX
