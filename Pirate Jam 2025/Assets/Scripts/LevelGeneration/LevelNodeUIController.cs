@@ -95,8 +95,8 @@ public class LevelNodeUIController : MonoBehaviour, IPointerEnterHandler, IPoint
                 case NodeType.Start:
                     tooltipText = "Encounter";
                     break;
-                case NodeType.MiniBoss:
-                    tooltipText = "Mini Boss";
+                case NodeType.Elite:
+                    tooltipText = "Elite";
                     break;
                 case NodeType.End:
                     tooltipText = "Boss";

@@ -3,13 +3,9 @@ using System.Linq;
 
 public static class DungeonAssets
 {
-    public static readonly HashSet<Room> RoomPresets = new HashSet<Room>
-    {
-        new Room { type = RoomType.Start },
-        new Room { type = RoomType.Main },
-        new Room { type = RoomType.Boss },
-        new Room { type = RoomType.Barrier } // i don't think this needs to be here
-    };
+    public static bool hasLoadedAssets = false;
+
+    public static List<Room> RoomPresets = new List<Room> { };
 
     public static Room GetRandomRoomWithType(RoomType type)
     {

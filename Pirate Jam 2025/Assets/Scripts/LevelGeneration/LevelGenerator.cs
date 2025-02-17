@@ -184,7 +184,7 @@ public class LevelGenerator : MonoBehaviour
                         if (encounterEvents.Count > 0)
                             node.combatData = encounterEvents[Random.Range(0, encounterEvents.Count)];
                         break;
-                    case NodeType.MiniBoss:
+                    case NodeType.Elite:
                         if (miniBossEvents.Count > 0)
                             node.combatData = miniBossEvents[Random.Range(0, miniBossEvents.Count)];
                         break;

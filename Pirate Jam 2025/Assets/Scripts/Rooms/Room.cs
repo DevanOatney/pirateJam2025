@@ -1,9 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Room
 {
+
+    // we need to figure out how to offset these rooms,
+    // origin of each room is at their center to start
+    // 15, 10 on each corner
+
+    public static int GameObjectWidth = 30;
+    public static int GameObjectHeight = 20;
+
     public Room()
     {
         type = RoomType.Empty;
@@ -32,11 +39,10 @@ public class Room
         }
     }
 
-    public void AddRoomToCurrentScene()
+    public GameObject GetRoomGameObject()
     {
         Debug.Log($"Getting room preset for type {type}...");
-        Room target = DungeonAssets.GetRandomRoomWithType(type);
-        
+        return DungeonAssets.GetRandomRoomWithType(type).roomGameObject;
     }
 
     public void CreateTunnelBuilder()

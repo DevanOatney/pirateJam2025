@@ -8,9 +8,15 @@ public class Hitbox : MonoBehaviour
     {
         // Check if the hitbox collides with an enemy
         Entity target = collision.GetComponent<Entity>();
-        if (target != null && target != owner)
+
+        if (target != null && target != owner && !target.isDead)
         {
             target.TakeDamage(owner.attackDamage);
+
+            if (target.CanTakeDamage())
+            {
+                owner.TryHealFromDamage(owner.attackDamage);
+            }
         }
     }
 }

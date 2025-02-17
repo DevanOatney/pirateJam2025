@@ -3,7 +3,42 @@ guid: 4a6e1a2a476693a4d8fa6fa0cd133d54
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: anvil
+    second: {fileID: 2100000, guid: 054aabaa4b807af4eb860634b41ac11b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrel strap
+    second: {fileID: 2100000, guid: 597a0ebf4e7a7ec4dac4d7ef5c700f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dark metal
+    second: {fileID: 2100000, guid: 8c08dc1a6edc8c3439a5a7f8f61db51e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor
+    second: {fileID: 2100000, guid: 5936c401dc4650444aba8f806c611ae6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: very light wood
+    second: {fileID: 2100000, guid: 44f747d44baefde4ca05d4be26c9357b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: window light
+    second: {fileID: 2100000, guid: 34fba3da8d375cc4a884a863ba8bfe8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood
+    second: {fileID: 2100000, guid: 4ca51f1e47e1e6f408b5961aa75ab159, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
