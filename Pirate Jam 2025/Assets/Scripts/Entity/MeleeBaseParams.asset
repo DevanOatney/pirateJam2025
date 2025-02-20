@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3a4f9b73545834aa55eb1a4fc26ee6, type: 3}
+  m_Name: MeleeBaseParams
+  m_EditorClassIdentifier: 
+  baseHealth: 50
+  baseDamageIgnoreTime: 0.2
+  baseMoveSpeed: 5
+  baseAttackDamage: 10
+  baseAttackRange: 2
+  baseAttackPre: 0
+  baseAttackPost: 0
+  baseAttackTime: 0.2
+  baseAttackCooldown: 1.5
+  moveSpeedMultOnAttack: 0
+  initAttackDamageMult: 1
+  initHealthMult: 1
+  initMoveSpeedMult: 1
+  initLifeStealMult: 0
+  initAttackSpeedMult: 1
+  initHealthRegenSpeedMult: 0
+  initDamageReduceMult: 0

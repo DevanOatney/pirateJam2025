@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DungeonManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class DungeonManager : MonoBehaviour
     public static readonly int MapHeight = 20;
 
     public static DungeonManager Instance { get; private set; }
+
+    public UnityEvent DungeonReady;
 
     public DungeonManager()
     {
@@ -45,6 +49,7 @@ public class DungeonManager : MonoBehaviour
     }
 
     public DungeonState state;
+    public RoomPresetManager presetManager;
     
     public Grid<Room> currentMap;
     public string currentDungeonTag;
@@ -121,6 +126,7 @@ public class DungeonManager : MonoBehaviour
         }
 
         hasRequestedLoad = true;
+        presetManager.LoadRoomPresets();
     }
 
     // builder functions
@@ -467,7 +473,7 @@ public class DungeonManager : MonoBehaviour
     public void Update()
     {
         // this is just for the test, there could be a better way to do this
-        if (!hasRequestedLoad || !updateRequired)
+        if (!hasRequestedLoad || !updateRequired || !DungeonAssets.hasLoadedAssets)
         {
             return;
         }
@@ -603,9 +609,17 @@ public class DungeonManager : MonoBehaviour
         if (IsInMapRange(roomGenX, roomGenY))
         {
             Room target = GetRoom(roomGenX, roomGenY);
-            if (target != null && target.type > 0)
+            if (target != null && target.type > 0 && target.type != RoomType.Barrier)
             {
-                target.AddRoomToCurrentScene();
+                GameObject roomContents = target.GetRoomGameObject();
+
+                // Create a copy of the room and offset it based on its current position
+                Vector3 roomOffset = new Vector3(roomGenX * Room.GameObjectWidth, roomContents.transform.position.y, roomGenY * Room.GameObjectHeight);
+
+                // place that copy in the world
+                GameObject result = Instantiate(roomContents, roomOffset, Quaternion.identity);
+                result.transform.Rotate(new Vector3(0, -90, 0));
+                result.SetActive(true);
             }
         }
 
@@ -631,6 +645,7 @@ public class DungeonManager : MonoBehaviour
     {
         if (allowedToContinue)
         {
+            DungeonReady.Invoke();
             completedGeneration = true;
             Debug.Log("Prepared everything for the dungeon, now moving to active updates...");
             state = DungeonState.DungeonActive;

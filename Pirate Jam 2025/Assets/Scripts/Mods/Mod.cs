@@ -1,7 +1,13 @@
+using System;
+
 public class Mod
 {
-    public void OnEquip(Entity target)
-    {
-        // Do this to the player (or enemy if we wanna get wild) on equip
-    }
+    public string name;
+    public string description;
+
+    public int powerPoints;
+    public int defensePoints;
+    public int speedPoints;
+
+    public Action<Entity> onEquip;
 }

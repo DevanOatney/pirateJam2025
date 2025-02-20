@@ -152,6 +152,10 @@ MonoBehaviour:
   attackDuration: 0.2
   attackCooldown: 1
   attackDamage: 10
+  attackCooldownTimer: 0
+  attackDurationTimer: 0
+  isAttacking: 0
+  distanceToPlayer: 0
 --- !u!1 &7696801517569103716
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +360,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.7734375, y: 1.9296875}
+  m_Size: {x: 1.875, y: 1.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

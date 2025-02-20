@@ -6,6 +6,7 @@ public class ProjectileManager : MonoBehaviour
 {
     // Singleton
     private static ProjectileManager instance;
+
     public static ProjectileManager Instance
     {
         get

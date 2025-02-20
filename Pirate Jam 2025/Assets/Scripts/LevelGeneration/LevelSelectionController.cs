@@ -116,7 +116,7 @@ public class LevelSelectionController : MonoBehaviour
                 ShowMysteryUI(levelNode.mysteryData);
                 break;
             case NodeType.Encounter:
-            case NodeType.MiniBoss:
+            case NodeType.Elite:
             case NodeType.Boss:
                 StartEncounter(levelNode.combatData);
                 break;
