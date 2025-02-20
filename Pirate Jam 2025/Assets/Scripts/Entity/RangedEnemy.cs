@@ -22,7 +22,7 @@ public class RangedEnemy : Enemy
     protected virtual void LaunchProjectile()
     {
         // Compute launch direction
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target.transform.position - transform.position).normalized;
 
         // Launch projectile
         GameObject spawnedProjectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);

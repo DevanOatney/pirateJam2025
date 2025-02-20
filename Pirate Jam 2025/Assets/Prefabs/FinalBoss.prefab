@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 4286288344080777662}
   - component: {fileID: 8000990586969173439}
   - component: {fileID: 6895523266610914137}
-  - component: {fileID: 6355541517179474618}
   - component: {fileID: 7481951623850151636}
-  - component: {fileID: 2131460046244759956}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Enemy
@@ -121,22 +119,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b278599f8bf275448aaaa469544c531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6355541517179474618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920989396877009851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75fbaa508a0b9c449b54a02d0f937c24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  detectionRange: 100
-  moveSpeed: 10
-  stoppingDistance: 3
+  attributes: {fileID: 0}
+  HealthUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  isMoving: 0
+  canAttack: 1
+  canMove: 1
+  st_attack: 0
+  t_attack: 0
+  t_attackEnd: 0
+  navParams: {fileID: 0}
+  st_nav: 0
 --- !u!114 &7481951623850151636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +138,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920989396877009851}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f5fc868b27de2c40b61316703ad18b1, type: 3}
   m_Name: 
@@ -154,23 +148,6 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 5171688702537170089}
   projectileLaunchForce: 200
   cooldown: 3
---- !u!114 &2131460046244759956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920989396877009851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a645ac0f672a0e64cb5039cd4e29bbe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitbox: {fileID: 8717226905546899146}
-  attackRange: 2
-  attackDuration: 0.2
-  attackCooldown: 1.5
-  attackDamage: 10
 --- !u!1 &3718445761780425329
 GameObject:
   m_ObjectHideFlags: 0

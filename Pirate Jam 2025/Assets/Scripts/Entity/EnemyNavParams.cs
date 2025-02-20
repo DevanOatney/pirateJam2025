@@ -3,9 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyNavParams", menuName = "Scriptable Objects/EnemyNavParams")]
 public class EnemyNavParams : ScriptableObject
 {
-    // how close to spot a player
-    public float detectionRange;
+    // who am i allowed to target?
+    public NavTarget allowedTargets;
 
+    // how to i determine the best target?
+    public NavPriority targetPriority;
+
+    // how long do i search for a target before giving up?
+    public float targetSearchTime;
+
+    // how close to spot a target?
+    public float detectionRange;
 
     // how fast does the enemy move when the player is too close?
     public float retreatMoveSpeedMult;

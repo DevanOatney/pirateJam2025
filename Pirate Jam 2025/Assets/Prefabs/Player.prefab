@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063de5f8b32665f40b8f78964ded58d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navType: 3
   attributes: {fileID: 11400000, guid: d422e1735fe19dc4db0bf5ef83b13139, type: 2}
   HealthUpdated:
     m_PersistentCalls:

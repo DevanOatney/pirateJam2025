@@ -7,6 +7,9 @@ public class Entity : MonoBehaviour
 {
     public delegate void HealthUpdatedParams(float previous, float current);
 
+    // what is the name of this entity?
+    public NavTarget navType;
+
     public EntityParams attributes;
 
     public UnityEvent<float, float> HealthUpdated;
@@ -122,7 +125,7 @@ public class Entity : MonoBehaviour
         t_damageIgnore = attributes.baseDamageIgnoreTime;
         float previous = currentHealth;
         currentHealth -= amount;
-        Debug.Log($"[Entity] {gameObject.name} took {amount} damage. (Health: {currentHealth})");
+        Debug.Log($"[{navType}] {gameObject.name} took {amount} damage. (Health: {currentHealth})");
 
         if (Mathf.Abs(currentHealth - previous) > 0)
         {
@@ -141,7 +144,7 @@ public class Entity : MonoBehaviour
     {
         float previous = currentHealth;
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log($"[Entity] {gameObject.name} recovered {amount}. (Health: {currentHealth})");
+        Debug.Log($"[{navType}] {gameObject.name} recovered {amount}. (Health: {currentHealth})");
 
         if (Mathf.Abs(currentHealth - previous) > 0)
         {
@@ -173,7 +176,7 @@ public class Entity : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log($"[Entity] {gameObject.name} has died.");
+        Debug.Log($"[{navType}] {gameObject.name} has died.");
         isDead = true;
         OnDeath();
     }

@@ -21,14 +21,13 @@ public class MeleeEnemy : Enemy
         {
             UpdateAttackHitbox();
         }
-
     }
 
     protected virtual void UpdateAttackHitbox()
     {
         hitbox.transform.localScale = new Vector3(2.5f * attributes.baseAttackRange, 2.5f * attributes.baseAttackRange, 2.5f * attributes.baseAttackRange);
         hitbox.GetComponent<SphereCollider>().radius = 0.25f * attributes.baseAttackRange;
-        Debug.Log($"Updated attack hitbox from {lastRange} to {attributes.baseAttackRange}");
+        Debug.Log($"[MeleeEnemy] Updated attack hitbox from {lastRange} to {attributes.baseAttackRange}");
         lastRange = attributes.baseAttackRange;
     }
 

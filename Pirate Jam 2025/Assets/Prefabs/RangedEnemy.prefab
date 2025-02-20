@@ -249,12 +249,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f31d75adb838b8a4093d3d8754f7a6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navType: 2
   attributes: {fileID: 11400000, guid: 28283f7accf83514cb785340639f6877, type: 2}
   HealthUpdated:
     m_PersistentCalls:
       m_Calls: []
   isMoving: 0
-  canAttack: 1
+  canAttack: 0
   canMove: 1
   st_attack: 0
   t_attack: 0

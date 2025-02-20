@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361d9730d2078444f844f970d694bf58, type: 3}
   m_Name: MeleeNavParams
   m_EditorClassIdentifier: 
+  allowedTargets: 3
+  targetPriority: 1
+  targetSearchTime: 0
   detectionRange: 10
   retreatMoveSpeedMult: 1.5
-  minDistance: 1.5
+  minDistance: 0.8
